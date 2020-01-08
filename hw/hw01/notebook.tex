@@ -1,0 +1,871 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{hw01}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Homework 1: Causality and
+Expressions}\label{homework-1-causality-and-expressions}
+
+Please complete this notebook by filling in the cells provided. Before
+you begin, execute the following cell to load the provided tests.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Don\PYZsq{}t change this cell; just run it. }
+        \PY{c+c1}{\PYZsh{} When you log\PYZhy{}in please hit return (not shift + return) after typing in your email}
+        \PY{k+kn}{from} \PY{n+nn}{client}\PY{n+nn}{.}\PY{n+nn}{api}\PY{n+nn}{.}\PY{n+nn}{notebook} \PY{k}{import} \PY{n}{Notebook}
+        \PY{n}{ok} \PY{o}{=} \PY{n}{Notebook}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hw01.ok}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}ok.auth()}
+\end{Verbatim}
+
+
+    \textbf{Recommended Reading:} -
+\href{http://www.inferentialthinking.com/chapters/01/what-is-data-science.html}{What
+is Data Science} -
+\href{http://www.inferentialthinking.com/chapters/02/causality-and-experiments.html}{Causality
+and Experiments} -
+\href{http://www.inferentialthinking.com/chapters/03/programming-in-python.html}{Programming
+in Python}
+
+For all problems that you must write explanations and sentences for, you
+\textbf{must} provide your answer in the designated space. Moreover,
+throughout this homework and all future ones, please be sure to not
+re-assign variables throughout the notebook! For example, if you use
+\texttt{max\_temperature} in your answer to one question, do not
+reassign it later on. Otherwise, you will fail tests that you thought
+you were passing previously!
+
+Directly sharing answers is not okay, but discussing problems with the
+course staff or with other students is encouraged. Refer to the policies
+page to learn more about how to learn cooperatively.
+
+You should start early so that you have time to get help if you're
+stuck.
+
+    Before continuing the assignment, select "Save and Checkpoint" in the
+File menu and then execute the \texttt{submit} cell below. The result
+will contain a link that you can use to check that your assignment has
+been submitted successfully. If you submit more than once before the
+deadline, we will only grade your final submission. If you mistakenly
+submit the wrong one, you can head to okpy.org and flag the correct
+version. There will be another \texttt{submit} cell at the end of the
+assignment when you finish!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{ok}\PY{o}{.}\PY{n}{submit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{1. Scary Arithmetic}\label{scary-arithmetic}
+
+    An ad for ADT Security Systems says,
+
+\begin{quote}
+"When you go on vacation, burglars go to work {[}...{]} According to FBI
+statistics, over 25\% of home burglaries occur between Memorial Day and
+Labor Day."
+\end{quote}
+
+Do the data in the ad support the claim that burglars are more likely to
+go to work during the time between Memorial Day and Labor Day? Please
+explain your answer.
+
+\textbf{Note:} You can assume that "over 25\%" means only slightly over.
+Had it been much over, say closer to 30\%, then the marketers would have
+said so.
+
+    \emph{Write your answer here, replacing this text.}
+
+    \subsection{2. Characters in Little
+Women}\label{characters-in-little-women}
+
+    In lecture, we counted the number of times that the literary characters
+were named in each chapter of the classic book,
+\href{https://www.inferentialthinking.com/chapters/01/3/1/literary-characters}{\emph{Little
+Women}}. In computer science, the word "character" also refers to a
+letter, digit, space, or punctuation mark; any single element of a text.
+The following code generates a scatter plot in which each dot
+corresponds to a chapter of \emph{Little Women}. The horizontal position
+of a dot measures the number of periods in the chapter. The vertical
+position measures the total number of characters.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} This cell contains code that hasn\PYZsq{}t yet been covered in the course,}
+        \PY{c+c1}{\PYZsh{} but you should be able to interpret the scatter plot it generates.}
+        
+        \PY{k+kn}{from} \PY{n+nn}{datascience} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{from} \PY{n+nn}{urllib}\PY{n+nn}{.}\PY{n+nn}{request} \PY{k}{import} \PY{n}{urlopen}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{n}{little\PYZus{}women\PYZus{}url} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://www.inferentialthinking.com/data/little\PYZus{}women.txt}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{chapters} \PY{o}{=} \PY{n}{urlopen}\PY{p}{(}\PY{n}{little\PYZus{}women\PYZus{}url}\PY{p}{)}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{decode}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CHAPTER }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+        \PY{n}{text} \PY{o}{=} \PY{n}{Table}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{with\PYZus{}column}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Chapters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{chapters}\PY{p}{)}
+        \PY{n}{Table}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{with\PYZus{}columns}\PY{p}{(}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Periods}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}    \PY{n}{np}\PY{o}{.}\PY{n}{char}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{n}{chapters}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Characters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{text}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n+nb}{len}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+            \PY{p}{)}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \textbf{Question 1.} Around how many periods are there in the chapter
+with the most characters? Assign either 1, 2, 3, 4, or 5 to the name
+\texttt{characters\_q1} below.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  250
+\item
+  390
+\item
+  440
+\item
+  32,000
+\item
+  40,000
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{characters\PYZus{}q1} \PY{o}{=} \PY{o}{.}\PY{o}{.}\PY{o}{.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{ok}\PY{o}{.}\PY{n}{grade}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{q2\PYZus{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    The test above checks that your answers are in the correct format.
+\textbf{This test does not check that you answered correctly}, only that
+you assigned a number successfully in each multiple-choice answer cell.
+
+    \textbf{Question 2.} Which of the following chapters has the most
+characters per period? Assign either 1, 2, or 3 to the name
+\texttt{characters\_q2} below. 1. The chapter with about 60 periods 2.
+The chapter with about 350 periods 3. The chapter with about 440 periods
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{characters\PYZus{}q2} \PY{o}{=} \PY{o}{.}\PY{o}{.}\PY{o}{.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{ok}\PY{o}{.}\PY{n}{grade}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{q2\PYZus{}2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    Again, the test above checks that your answers are in the correct
+format, but not that you have answered correctly.
+
+    To discover more interesting facts from this plot, read
+\href{https://www.inferentialthinking.com/chapters/01/3/2/another-kind-of-character}{Section
+1.3.2} of the textbook.
+
+    \subsection{3. Names and Assignment
+Statements}\label{names-and-assignment-statements}
+
+    \textbf{Question 1.} When you run the following cell, Python produces a
+cryptic error message.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{l+m+mi}{4} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{+} \PY{l+m+mi}{2}
+\end{Verbatim}
+
+
+    Choose the best explanation of what's wrong with the code, and then
+assign 1, 2, 3, or 4 to \texttt{names\_q1} below to indicate your
+answer.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Python is smart and already knows \texttt{4\ =\ 2\ +\ 2}.
+\item
+  \texttt{4} is already a defined number, and it doesn't make sense to
+  make a number be a name for something else. In Python,
+  "\texttt{x\ =\ 2\ +\ 2}" means "assign \texttt{x} as the name for the
+  value of \texttt{2\ +\ 2}."
+\item
+  It should be \texttt{2\ +\ 2\ =\ 4}.
+\item
+  I don't get an error message. This is a trick question.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{names\PYZus{}q1} \PY{o}{=} \PY{o}{.}\PY{o}{.}\PY{o}{.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{ok}\PY{o}{.}\PY{n}{grade}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{q3\PYZus{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \textbf{Question 2.} When you run the following cell, Python will
+produce another cryptic error message.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{two} \PY{o}{=} \PY{l+m+mi}{3}
+        \PY{n}{six} \PY{o}{=} \PY{n}{two} \PY{n}{plus} \PY{n}{two}
+\end{Verbatim}
+
+
+    Choose the best explanation of what's wrong with the code and assign 1,
+2, 3, or 4 to \texttt{names\_q2} below to indicate your answer.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  The \texttt{plus} operation only applies to numbers, not the word
+  "two".
+\item
+  The name "two" cannot be assigned to the number 3.
+\item
+  Two plus two is four, not six.
+\item
+  Python cannot interpret the name \texttt{two} followed directly by
+  another name.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{names\PYZus{}q2} \PY{o}{=} \PY{o}{.}\PY{o}{.}\PY{o}{.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{ok}\PY{o}{.}\PY{n}{grade}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{q3\PYZus{}2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \textbf{Question 3.} When you run the following cell, Python will, yet
+again, produce another cryptic error message.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{x} \PY{o}{=} \PY{n+nb}{print}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+        \PY{n}{y} \PY{o}{=} \PY{n}{x} \PY{o}{+} \PY{l+m+mi}{2}
+\end{Verbatim}
+
+
+    Choose the best explanation of what's wrong with the code and assign 1,
+2, or 3 to \texttt{names\_q3} below to indicate your answer.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Python doesn't want \texttt{y} to be assigned.
+\item
+  The \texttt{print} operation is meant for displaying values to the
+  programmer, not for assigning values!
+\item
+  What error message?
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{names\PYZus{}q3} \PY{o}{=} \PY{o}{.}\PY{o}{.}\PY{o}{.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{ok}\PY{o}{.}\PY{n}{grade}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{q3\PYZus{}3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \subsection{4. Job Opportunities \& Education in Rural
+India}\label{job-opportunities-education-in-rural-india}
+
+    A \href{http://www.nber.org/papers/w16021.pdf}{study} at UCLA
+investigated factors that might result in greater attention to the
+health and education of girls in rural India. One such factor is
+information about job opportunities for women. The idea is that if
+people know that educated women can get good jobs, they might take more
+care of the health and education of girls in their families, as an
+investment in the girls' future potential as earners. Without the
+knowledge of job opportunities, the author hypothesizes that families do
+not invest in women's well-being.
+
+The study focused on 160 villages outside the capital of India, all with
+little access to information about call centers and similar
+organizations that offer job opportunities to women. In 80 of the
+villages chosen at random, recruiters visited the village, described the
+opportunities, recruited women who had some English language proficiency
+and experience with computers, and provided ongoing support free of
+charge for three years. In the other 80 villages, no recruiters visited
+and no other intervention was made.
+
+At the end of the study period, the researchers recorded data about the
+school attendance and health of the children in the villages.
+
+    \textbf{Question 1.} Which statement best describes the \emph{treatment}
+and \emph{control} groups for this study? Assign either 1, 2, or 3 to
+the name \texttt{jobs\_q1} below.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  The treatment group was the 80 villages visited by recruiters, and the
+  control group was the other 80 villages with no intervention.
+\item
+  The treatment group was the 160 villages selected, and the control
+  group was the rest of the villages outside the capital of India.
+\item
+  There is no clear notion of \emph{treatment} and \emph{control} group
+  in this study.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{jobs\PYZus{}q1} \PY{o}{=} \PY{o}{.}\PY{o}{.}\PY{o}{.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{ok}\PY{o}{.}\PY{n}{grade}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{q4\PYZus{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \textbf{Question 2.} Was this an observational study or a randomized
+controlled experiment? Assign either 1, 2, or 3 to the name
+\texttt{jobs\_q2} below.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  This was an observational study.
+\item
+  This was a randomized controlled experiment.
+\item
+  This was a randomized observational study.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{jobs\PYZus{}q2} \PY{o}{=} \PY{o}{.}\PY{o}{.}\PY{o}{.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{ok}\PY{o}{.}\PY{n}{grade}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{q4\PYZus{}2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \textbf{Question 3.} The study reported, ``Girls aged 5-15 in villages
+that received the recruiting services were 3 to 5 percentage points more
+likely to be in school and experienced an increase in Body Mass Index,
+reflecting greater nutrition and/or medical care. However, there was no
+net gain in height. For boys, there was no change in any of these
+measures.'' Why do you think the author points out the lack of change in
+the boys?
+
+\emph{Hint:} Remember the original hypothesis. The author believes that
+educating women in job opportunities will cause families to invest more
+in the women's well-being.
+
+    \emph{Write your answer here, replacing this text.}
+
+    \subsection{5. Differences between
+Majors}\label{differences-between-majors}
+
+    Berkeley's Office of Planning and Analysis provides data on numerous
+aspects of the campus. Adapted from the OPA website, the table below
+displays the numbers of degree recipients in three majors in the
+academic years 2008-2009 and 2017-2018.
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+Major & 2008-2009 & 2017-2018\tabularnewline
+\midrule
+\endhead
+Gender and Women's Studies & 17 & 28\tabularnewline
+Linguistics & 49 & 67\tabularnewline
+Rhetoric & 113 & 56\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \textbf{Question 1.} Suppose you want to find the \textbf{biggest}
+absolute difference between the numbers of degree recipients in the two
+years, among the three majors.
+
+In the cell below, compute this value and call it
+\texttt{biggest\_change}. Use a single expression (a single line of
+code) to compute the answer. Let Python perform all the arithmetic (like
+subtracting 49 from 67) rather than simplifying the expression yourself.
+The built-in abs function takes a numerical input and returns the
+absolute value.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{biggest\PYZus{}change} \PY{o}{=} \PY{o}{.}\PY{o}{.}\PY{o}{.}
+        \PY{n}{biggest\PYZus{}change}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{ok}\PY{o}{.}\PY{n}{grade}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{q5\PYZus{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    Use the cell above to test for formatting (in this case, that
+dissimilarity is a number)
+
+    \textbf{Question 2.} Which of the three majors had the \textbf{smallest}
+absolute difference? Assign \texttt{smallest\_change\_major} to 1, 2, or
+3 where each number corresponds to the following major:
+
+1: Gender and Women's Studies\\
+2: Linguistics\\
+3: Rhetoric
+
+Choose the number that corresponds to the major with the smallest
+absolute difference.
+
+You should be able to answer by rough mental arithmetic, without having
+to calculate the exact value for each major.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{smallest\PYZus{}change\PYZus{}major} \PY{o}{=} \PY{o}{.}\PY{o}{.}\PY{o}{.}
+        \PY{n}{smallest\PYZus{}change\PYZus{}major}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{ok}\PY{o}{.}\PY{n}{grade}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{q5\PYZus{}2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \textbf{Question 3.} For each major, define the ``relative change'' to
+be the following:
+\(\large{\frac{\text{absolute difference}}{\text{value in 2008-2009}} * 100}\)
+
+Fill in the code below such that \texttt{gws\_relative\_change},
+\texttt{linguistics\_relative\_change} and
+\texttt{rhetoric\_relative\_change} are assigned to the relative changes
+for their respective majors.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{gws\PYZus{}relative\PYZus{}change} \PY{o}{=} \PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{o}{.}\PY{o}{.}\PY{o}{.}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{17}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{100}
+        \PY{n}{linguistics\PYZus{}relative\PYZus{}change} \PY{o}{=} \PY{o}{.}\PY{o}{.}\PY{o}{.}
+        \PY{n}{rhetoric\PYZus{}relative\PYZus{}change} \PY{o}{=} \PY{o}{.}\PY{o}{.}\PY{o}{.}
+        \PY{n}{gws\PYZus{}relative\PYZus{}change}\PY{p}{,} \PY{n}{linguistics\PYZus{}relative\PYZus{}change}\PY{p}{,} \PY{n}{rhetoric\PYZus{}relative\PYZus{}change}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{ok}\PY{o}{.}\PY{n}{grade}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{q5\PYZus{}3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \textbf{Question 4.} Assign \texttt{biggest\_rel\_change\_major} to 1,
+2, or 3 where each number corresponds to to the following:
+
+1: Gender and Women's Studies\\
+2: Linguistics\\
+3: Rhetoric
+
+Choose the number that corresponds to the major with the biggest
+relative change.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Assign biggest\PYZus{}rel\PYZus{}change\PYZus{}major to the number corresponding to the major with the biggest relative change.}
+        \PY{n}{biggest\PYZus{}rel\PYZus{}change\PYZus{}major} \PY{o}{=} \PY{o}{.}\PY{o}{.}\PY{o}{.}
+        \PY{n}{biggest\PYZus{}rel\PYZus{}change\PYZus{}major}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{ok}\PY{o}{.}\PY{n}{grade}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{q5\PYZus{}4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \subsection{6. Nearsightedness Study}\label{nearsightedness-study}
+
+    Myopia, or nearsightedness, results from a number of genetic and
+environmental factors. In 1999, Quinn et al studied the relation between
+myopia and ambient lighting at night (for example, from nightlights or
+room lights) during childhood.
+
+    \textbf{Question 1.} The data were gathered by the following procedure,
+reported in the study. ``Between January and June 1998, parents of
+children aged 2-16 years {[}...{]} that were seen as outpatients in a
+university pediatric ophthalmology clinic completed a questionnaire on
+the child's light exposure both at present and before the age of 2
+years.'' Was this study observational, or was it a controlled
+experiment? Explain.
+
+    \emph{Write your answer here, replacing this text.}
+
+    \textbf{Question 2.} The study found that of the children who slept with
+a room light on before the age of 2, 55\% were myopic. Of the children
+who slept with a night light on before the age of 2, 34\% were myopic.
+Of the children who slept in the dark before the age of 2, 10\% were
+myopic. The study concluded that, "The prevalence of myopia {[}...{]}
+during childhood was strongly associated with ambient light exposure
+during sleep at night in the first two years after birth."
+
+Do the data support this statement? You may interpret ``strongly'' in
+any reasonable qualitative way.
+
+    \emph{Write your answer here, replacing this text.}
+
+    \textbf{Question 3.} On May 13, 1999, CNN reported the results of this
+study under the headline, ``Night light may lead to nearsightedness.''
+Does the conclusion of the study claim that night light causes
+nearsightedness?
+
+    \emph{Write your answer here, replacing this text.}
+
+    \textbf{Question 4.} The final paragraph of the CNN report said that
+``several eye specialists'' had pointed out that the study should have
+accounted for heredity.
+
+Myopia is passed down from parents to children. Myopic parents are more
+likely to have myopic children, and may also be more likely to leave
+lights on habitually (since they have poor vision). In what way does the
+knowledge of this possible genetic link affect how we interpret the data
+from the study?
+
+    \emph{Write your answer here, replacing this text.}
+
+    \subsection{7. Studying the Survivors}\label{studying-the-survivors}
+
+    The Reverend Henry Whitehead was skeptical of John Snow's conclusion
+about the Broad Street pump. After the Broad Street cholera epidemic
+ended, Whitehead set about trying to prove Snow wrong. (The history of
+the event is detailed
+\href{http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1034367/pdf/medhist00183-0026.pdf}{here}.)
+
+He realized that Snow had focused his analysis almost entirely on those
+who had died. Whitehead, therefore, investigated the drinking habits of
+people in the Broad Street area who had not died in the outbreak.
+
+What is the main reason it was important to study this group?
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\item
+  If Whitehead had found that many people had drunk water from the Broad
+  Street pump and not caught cholera, that would have been evidence
+  against Snow's hypothesis.
+\item
+  Survivors could provide additional information about what else could
+  have caused the cholera, potentially unearthing another cause.
+\item
+  Through considering the survivors, Whitehead could have identified a
+  cure for cholera.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Assign survivor\PYZus{}answer to 1, 2, or 3}
+        \PY{n}{survivor\PYZus{}answer} \PY{o}{=} \PY{o}{.}\PY{o}{.}\PY{o}{.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{ok}\PY{o}{.}\PY{n}{grade}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{q7\PYZus{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \textbf{Note:} Whitehead ended up finding further proof that the Broad
+Street pump played the central role in spreading the disease to the
+people who lived near it. Eventually, he became one of Snow's greatest
+defenders.
+
+    \subsection{8. Submission}\label{submission}
+
+    Once you're finished, select "Save and Checkpoint" in the File menu and
+then execute the \texttt{submit} cell below.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{ok}\PY{o}{.}\PY{n}{submit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} For your convenience, you can run this cell to run all the tests at once!}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Running all tests...}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{\PYZus{}} \PY{o}{=} \PY{p}{[}\PY{n}{ok}\PY{o}{.}\PY{n}{grade}\PY{p}{(}\PY{n}{q}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{q} \PY{o+ow}{in} \PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tests}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{k}{if} \PY{n}{q}\PY{o}{.}\PY{n}{startswith}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{q}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o+ow}{and} \PY{n+nb}{len}\PY{p}{(}\PY{n}{q}\PY{p}{)} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{10}\PY{p}{]}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Finished running all tests.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
